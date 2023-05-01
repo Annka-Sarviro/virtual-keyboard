@@ -1,3 +1,17 @@
 body {
   background-color: antiquewhite;
 }
+
+li {
+  list-style: none;
+}
+
+.fist-line {
+  display: flex;
+}
+
+.key {
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+}
