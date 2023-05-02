@@ -83,3 +83,7 @@ button:focus-visible {
 .keyboard__btn_dark {
   background-color: rgba(31, 28, 28, 0.2);
 }
+
+.keyboard__btn_activ_key {
+  background-color: red;
+}

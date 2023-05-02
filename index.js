@@ -17,6 +17,10 @@ function createKeyBoard() {
   main.appendChild(inputBoard);
   main.appendChild(container);
   document.body.appendChild(main);
+
+  const keysBtn = document.querySelectorAll('.keyboard__btn');
+  keysBtn.forEach(key => key.addEventListener('click', () => buttonClick(key)));
+  keysBtn.forEach(key => key.addEventListener('keydown', () => moveRect(key)));
 }
 
 function createKey(btnName) {
@@ -34,13 +38,7 @@ function createKeys(keys) {
         keyBtn.classList.add('keyboard__btn_l', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('backspace');
 
-        keyBtn.addEventListener('click', () => {
-          // this.properties.value = this.properties.value.substring(
-          //   0,
-          //   this.properties.value.length - 1
-          // );
-          // this._triggerEvent('oninput');
-        });
+        keyBtn.addEventListener('click', () => {});
 
         break;
 
@@ -48,33 +46,17 @@ function createKeys(keys) {
         keyBtn.classList.add('keyboard__btn_l', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('capslock');
 
-        //   keyBtn.addEventListener('click', () => {
-        //     this._toggleCapsLock();
-        //     keyBtn.classList.toggle('keyboard__btn--active', this.properties.capsLock);
-        //   });
-
         break;
 
       case 'enter':
         keyBtn.classList.add('keyboard__btn_l', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('enter');
 
-        //   keyBtn.addEventListener('click', () => {
-        //     this.properties.value += '\n';
-        //     this._triggerEvent('oninput');
-        //   });
-
         break;
 
       case 'space':
         keyBtn.classList.add('keyboard__btn_xl'), 'keyboard__btn_dark';
         keyBtn.innerHTML = createKey('');
-        keyBtn.addEventListener('click', () => buttonClick(' ', keyBtn));
-
-        //   keyBtn.addEventListener('click', () => {
-        //     this.properties.value += ' ';
-        //     this._triggerEvent('oninput');
-        //   });
 
         break;
 
@@ -82,67 +64,36 @@ function createKeys(keys) {
         keyBtn.classList.add('keyboard__btn_l', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('shift');
 
-        //   keyBtn.addEventListener('click', () => {
-        //     this.close();
-        //     this._triggerEvent('onclose');
-        //   });
-
         break;
       case 'ctrl':
         keyBtn.classList.add('keyboard__btn', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('ctrl');
-
-        //   keyBtn.addEventListener('click', () => {
-        //     this.close();
-        //     this._triggerEvent('onclose');
-        //   });
 
         break;
       case 'alt':
         keyBtn.classList.add('keyboard__btn', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('alt');
 
-        //   keyBtn.addEventListener('click', () => {
-        //     this.close();
-        //     this._triggerEvent('onclose');
-        //   });
-
         break;
       case 'del':
         keyBtn.classList.add('keyboard__btn', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('del');
 
-        //   keyBtn.addEventListener('click', () => {
-        //     this.close();
-        //     this._triggerEvent('onclose');
-        //   });
-
         break;
       case 'tab':
         keyBtn.classList.add('keyboard__btn', 'keyboard__btn_dark');
-        keyBtn.innerHTML = createKey('tad');
-
-        //   keyBtn.addEventListener('click', () => {
-        //     this.close();
-        //     this._triggerEvent('onclose');
-        //   });
+        keyBtn.innerHTML = createKey('tab');
 
         break;
       case 'win':
         keyBtn.classList.add('keyboard__btn', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('win');
 
-        //   keyBtn.addEventListener('click', () => {
-        //     this.close();
-        //     this._triggerEvent('onclose');
-        //   });
-
         break;
 
       default:
         keyBtn.innerHTML = createKey(key);
-        keyBtn.addEventListener('click', () => buttonClick(key, keyBtn));
-        keyBtn.addEventListener('keydown', () => moveRect(keyBtn));
+
         break;
     }
     return keyBtn;
@@ -151,18 +102,43 @@ function createKeys(keys) {
   return all;
 }
 
-const buttonClick = (key, keyBtn) => {
-  testInner.push(key);
-  keyBtn.classList.add('keyboard__btn_activ');
-  document.querySelector('.input__board').textContent = testInner.join('');
-  setTimeout(() => keyBtn.classList.remove('keyboard__btn_activ'), 300);
+const buttonClick = key => {
+  let text = key.textContent;
+  let input = testInner;
+  if (!text) {
+    text = ' ';
+  }
+
+  if (text === 'backspace') {
+    text = '';
+    input.pop();
+  }
+  if (
+    text === 'tab' ||
+    text === 'shift' ||
+    text === 'capslock' ||
+    text === 'ctrl' ||
+    text === 'capslock' ||
+    text === 'win' ||
+    text === 'alt' ||
+    text === 'backspace' ||
+    text === 'del' ||
+    text === 'enter'
+  ) {
+    text = '';
+  }
+
+  testInner.push(text);
+  key.classList.add('keyboard__btn_activ');
+  document.querySelector('.input__board').textContent = input.join('');
+  setTimeout(() => key.classList.remove('keyboard__btn_activ'), 300);
 };
 
-const moveRect = keyBtn => {
-  console.log(event.key);
+const moveRect = key => {
   testInner.push(event.key);
-  keyBtn.classList.add('keyboard__btn_activ');
+  key.classList.add('keyboard__btn_activ_key');
   document.querySelector('.input__board').textContent = testInner.join('');
-  setTimeout(() => keyBtn.classList.remove('keyboard__btn_activ'), 300);
+  setTimeout(() => key.classList.remove('keyboard__btn_activ_key'), 20);
 };
+
 createKeyBoard();
