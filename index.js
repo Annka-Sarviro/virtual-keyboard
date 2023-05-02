@@ -5,7 +5,7 @@ const testInner = [];
 function createKeyBoard() {
   const main = document.createElement('div');
   const container = document.createElement('div');
-  const inputBoard = document.createElement('textarea');
+  const inputBoard = document.createElement('div');
 
   main.classList.add('keyboard');
   container.classList.add('keyboard__container');
@@ -31,7 +31,7 @@ function createKeys(keys) {
 
     switch (key) {
       case 'backspace':
-        keyBtn.classList.add('keyboard__btn_l');
+        keyBtn.classList.add('keyboard__btn_l', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('backspace');
 
         keyBtn.addEventListener('click', () => {
@@ -45,7 +45,7 @@ function createKeys(keys) {
         break;
 
       case 'caps':
-        keyBtn.classList.add('keyboard__btn_l', 'keyboard__btn--activatable');
+        keyBtn.classList.add('keyboard__btn_l', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('capslock');
 
         //   keyBtn.addEventListener('click', () => {
@@ -56,7 +56,7 @@ function createKeys(keys) {
         break;
 
       case 'enter':
-        keyBtn.classList.add('keyboard__btn_l');
+        keyBtn.classList.add('keyboard__btn_l', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('enter');
 
         //   keyBtn.addEventListener('click', () => {
@@ -67,7 +67,7 @@ function createKeys(keys) {
         break;
 
       case 'space':
-        keyBtn.classList.add('keyboard__btn_xl');
+        keyBtn.classList.add('keyboard__btn_xl'), 'keyboard__btn_dark';
         keyBtn.innerHTML = createKey('');
         keyBtn.addEventListener('click', () => buttonClick(' ', keyBtn));
 
@@ -79,7 +79,7 @@ function createKeys(keys) {
         break;
 
       case 'shift':
-        keyBtn.classList.add('keyboard__btn_l', 'keyboard__btn--dark');
+        keyBtn.classList.add('keyboard__btn_l', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('shift');
 
         //   keyBtn.addEventListener('click', () => {
@@ -89,7 +89,7 @@ function createKeys(keys) {
 
         break;
       case 'ctrl':
-        keyBtn.classList.add('keyboard__btn', 'keyboard__btn--dark');
+        keyBtn.classList.add('keyboard__btn', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('ctrl');
 
         //   keyBtn.addEventListener('click', () => {
@@ -99,7 +99,7 @@ function createKeys(keys) {
 
         break;
       case 'alt':
-        keyBtn.classList.add('keyboard__btn', 'keyboard__btn--dark');
+        keyBtn.classList.add('keyboard__btn', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('alt');
 
         //   keyBtn.addEventListener('click', () => {
@@ -109,7 +109,7 @@ function createKeys(keys) {
 
         break;
       case 'del':
-        keyBtn.classList.add('keyboard__btn', 'keyboard__btn--dark');
+        keyBtn.classList.add('keyboard__btn', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('del');
 
         //   keyBtn.addEventListener('click', () => {
@@ -118,8 +118,8 @@ function createKeys(keys) {
         //   });
 
         break;
-      case 'tad':
-        keyBtn.classList.add('keyboard__btn', 'keyboard__btn--dark');
+      case 'tab':
+        keyBtn.classList.add('keyboard__btn', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('tad');
 
         //   keyBtn.addEventListener('click', () => {
@@ -129,7 +129,7 @@ function createKeys(keys) {
 
         break;
       case 'win':
-        keyBtn.classList.add('keyboard__btn', 'keyboard__btn--dark');
+        keyBtn.classList.add('keyboard__btn', 'keyboard__btn_dark');
         keyBtn.innerHTML = createKey('win');
 
         //   keyBtn.addEventListener('click', () => {
@@ -142,7 +142,7 @@ function createKeys(keys) {
       default:
         keyBtn.innerHTML = createKey(key);
         keyBtn.addEventListener('click', () => buttonClick(key, keyBtn));
-        keyBtn.addEventListener('keydown', () => moveRect());
+        keyBtn.addEventListener('keydown', () => moveRect(keyBtn));
         break;
     }
     return keyBtn;
@@ -158,8 +158,11 @@ const buttonClick = (key, keyBtn) => {
   setTimeout(() => keyBtn.classList.remove('keyboard__btn_activ'), 300);
 };
 
-const moveRect = ({ key }) => {
-  testInner.push(key);
+const moveRect = keyBtn => {
+  console.log(event.key);
+  testInner.push(event.key);
+  keyBtn.classList.add('keyboard__btn_activ');
   document.querySelector('.input__board').textContent = testInner.join('');
+  setTimeout(() => keyBtn.classList.remove('keyboard__btn_activ'), 300);
 };
 createKeyBoard();
