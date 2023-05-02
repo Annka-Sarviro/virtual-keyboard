@@ -88,3 +88,7 @@ button:focus-visible {
 .keyboard__btn_activ_shift {
   background-color: rgb(243, 229, 148);
 }
+
+.keyboard__btn_activ_key {
+  background-color: aqua;
+}

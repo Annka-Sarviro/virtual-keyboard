@@ -55,7 +55,7 @@ const key = [
   '^',
   'shift',
   'ctrl',
-  'win',
+  'En',
   'alt',
   'space',
   'alt',
