@@ -3,33 +3,35 @@ import keys from './keysLayout.js';
 function createKeyBoard() {
   const main = document.createElement('div');
   const container = document.createElement('div');
+  const inputBoard = document.createElement('input');
 
-  main.appendChild(container);
-  document.body.appendChild(main);
   main.classList.add('keyboard');
   container.classList.add('keyboard__container');
+  inputBoard.classList.add('input__board');
+
   const keysEl = createKeys(keys);
-  console.log(keysEl);
-  container.appendChild(keysEl);
+  keysEl.map(el => container.appendChild(el));
   container.querySelectorAll('.keyboard__btn');
+  main.appendChild(inputBoard);
   main.appendChild(container);
+  document.body.appendChild(main);
 }
 
 function createKey(btnName) {
-  return `<button class="btns">${btnName}</button>`;
+  return `<button type='button' class="btns">${btnName}</button>`;
 }
 
 function createKeys(keys) {
-  const all = keys.forEach(key => {
+  const all = keys.map(key => {
     const keyBtn = document.createElement('li');
     keyBtn.setAttribute('type', 'button');
-    keyBtn.classList.add('keyboard_btn');
+    keyBtn.classList.add('keyboard__btn');
 
     switch (key) {
       case 'backspace':
         keyBtn.classList.add('keyboard__btn_l');
         keyBtn.innerHTML = createKey('backspace');
-        console.log('hhkjh');
+
         keyBtn.addEventListener('click', () => {
           // this.properties.value = this.properties.value.substring(
           //   0,
@@ -63,8 +65,8 @@ function createKeys(keys) {
         break;
 
       case 'space':
-        keyBtn.classList.add('keyboard__btn__xl');
-        keyBtn.innerHTML = createKey('space');
+        keyBtn.classList.add('keyboard__btn_xl');
+        keyBtn.innerHTML = createKey('');
 
         //   keyBtn.addEventListener('click', () => {
         //     this.properties.value += ' ';
@@ -74,7 +76,7 @@ function createKeys(keys) {
         break;
 
       case 'shift':
-        keyBtn.classList.add('keyboard__key_l', 'keyboard__btn--dark');
+        keyBtn.classList.add('keyboard__btn_l', 'keyboard__btn--dark');
         keyBtn.innerHTML = createKey('shift');
 
         //   keyBtn.addEventListener('click', () => {
@@ -85,8 +87,8 @@ function createKeys(keys) {
         break;
 
       default:
-        keyBtn.textContent = key.toLowerCase();
-        keyBtn.innerHTML = createKey('');
+        keyBtn.innerHTML = createKey(key);
+
         //   keyBtn.addEventListener('click', () => {
         //     this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
         //     this._triggerEvent('oninput');
@@ -94,10 +96,9 @@ function createKeys(keys) {
 
         break;
     }
-    console.log(keyBtn);
     return keyBtn;
   });
 
-  console.log(all);
+  return all;
 }
 createKeyBoard();
