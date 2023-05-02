@@ -42,7 +42,6 @@ const key = [
   '"',
   'enter',
   'shift',
-  '\\',
   'z',
   'x',
   'c',

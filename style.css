@@ -36,6 +36,7 @@ li {
   background-color: transparent;
   border: none;
   width: auto;
+  cursor: pointer;
 }
 .keyboard__btn {
   height: 25px;
@@ -48,7 +49,7 @@ li {
   color: #ffffff;
   font-size: 1.05rem;
   outline: none;
-  cursor: pointer;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -63,6 +64,10 @@ li {
 }
 
 .keyboard__btn_xl {
-  width: 34%;
+  width: 47%;
   max-width: 500px;
+}
+
+.keyboard__btn_activ {
+  background-color: rgb(243, 229, 148);
 }
