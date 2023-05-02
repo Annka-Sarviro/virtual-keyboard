@@ -1,6 +1,8 @@
 import keys from './keysLayout.js';
 
-const testInner = [];
+let testInner = [];
+let isCaps = false;
+let isShift = false;
 
 function createKeyBoard() {
   const main = document.createElement('div');
@@ -61,7 +63,7 @@ function createKeys(keys) {
         break;
 
       case 'shift':
-        keyBtn.classList.add('keyboard__btn_l', 'keyboard__btn_dark');
+        keyBtn.classList.add('keyboard__btn_l', 'keyboard__btn_dark', 'keyboard__btn_shift');
         keyBtn.innerHTML = createKey('shift');
 
         break;
@@ -113,24 +115,61 @@ const buttonClick = key => {
     text = '';
     input.pop();
   }
+
+  if (text === 'del') {
+    text = '';
+    input = [];
+    testInner = [];
+  }
+
+  if (text === 'capslock') {
+    isCaps ? (isCaps = false) : (isCaps = true);
+    key.classList.toggle('keyboard__btn_activ_cap');
+    text = '';
+  }
+
+  if (text === 'shift') {
+    if (!isShift) {
+      key.classList.toggle('keyboard__btn_activ_shift');
+    }
+    isShift = true;
+    key.classList.add('keyboard__btn_activ_shift');
+    text = '';
+  }
+
   if (
     text === 'tab' ||
     text === 'shift' ||
-    text === 'capslock' ||
     text === 'ctrl' ||
-    text === 'capslock' ||
     text === 'win' ||
     text === 'alt' ||
-    text === 'backspace' ||
-    text === 'del' ||
     text === 'enter'
   ) {
     text = '';
   }
 
+  if (isCaps) {
+    text = text.toUpperCase();
+  } else if (isShift) {
+    text = text.toUpperCase();
+  } else {
+    text = text.toLowerCase();
+  }
   testInner.push(text);
   key.classList.add('keyboard__btn_activ');
   document.querySelector('.input__board').textContent = input.join('');
+
+  if (key.textContent !== 'shift') {
+    isShift = false;
+  }
+
+  if (!isShift) {
+    const a = document.querySelector('.keyboard__btn_shift');
+
+    if (a) {
+      a.classList.remove('keyboard__btn_activ_shift');
+    }
+  }
   setTimeout(() => key.classList.remove('keyboard__btn_activ'), 300);
 };
 
@@ -138,6 +177,7 @@ const moveRect = key => {
   testInner.push(event.key);
   key.classList.add('keyboard__btn_activ_key');
   document.querySelector('.input__board').textContent = testInner.join('');
+
   setTimeout(() => key.classList.remove('keyboard__btn_activ_key'), 20);
 };
 

@@ -84,6 +84,7 @@ button:focus-visible {
   background-color: rgba(31, 28, 28, 0.2);
 }
 
-.keyboard__btn_activ_key {
-  background-color: red;
+.keyboard__btn_activ_cap,
+.keyboard__btn_activ_shift {
+  background-color: rgb(243, 229, 148);
 }
